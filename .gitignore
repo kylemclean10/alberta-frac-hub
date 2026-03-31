@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Raw data — too large for repo
+data/raw/
+data/processed/
+
+# Pipeline outputs — not needed in repo except powerbi CSVs
+outputs/powerbi/fact_ingredients.csv
+outputs/powerbi/dim_well.csv
+
+# Keep the small dimension tables but exclude the large fact + well tables
+# Actually keep all powerbi CSVs — they're needed to run the app
+# Override: don't ignore outputs/powerbi/
+
+# PyCharm / IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Env files
+.env
+*.env
