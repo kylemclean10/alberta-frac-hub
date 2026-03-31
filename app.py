@@ -104,7 +104,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Data loading ───────────────────────────────────────────────────────────
-POWERBI_DIR = Path("outputs/powerbi")
+# Path relative to this file so it works on Streamlit Cloud
+POWERBI_DIR = Path(__file__).parent / "outputs" / "powerbi"
 
 @st.cache_data
 def load_data():
