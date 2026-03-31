@@ -82,6 +82,14 @@ def build_dim_well(df: pd.DataFrame) -> pd.DataFrame:
         .drop_duplicates(subset="well_licence_number")
         .reset_index(drop=True)
     )
+    # Normalize well_licence_number to match fact table format:
+    # strip whitespace and leading zeros so '  0002105  ' becomes '2105'
+    dim["well_licence_number"] = (
+        dim["well_licence_number"]
+        .astype(str)
+        .str.strip()
+        .str.lstrip("0")
+    )
     print(f"  dim_well:             {len(dim):,} wells")
     return dim
 
