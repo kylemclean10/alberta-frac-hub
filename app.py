@@ -121,6 +121,13 @@ def load_data():
                            dtype={"well_licence_number": str},
                            low_memory=False)
     dim_well["well_licence_number"] = dim_well["well_licence_number"].astype(str).str.strip()
+    # Verify join key overlap
+    import sys
+    print(f"DEBUG: fact rows={len(fact)}, dim_well rows={len(dim_well)}", file=sys.stderr)
+    print(f"DEBUG: fact wln sample={fact['well_licence_number'].head(3).tolist()}", file=sys.stderr)
+    print(f"DEBUG: dim_well wln sample={dim_well['well_licence_number'].head(3).tolist()}", file=sys.stderr)
+    overlap = fact["well_licence_number"].isin(dim_well["well_licence_number"]).sum()
+    print(f"DEBUG: overlap={overlap}", file=sys.stderr)
     dim_ingredient = pd.read_csv(POWERBI_DIR / "dim_ingredient.csv",
                                  dtype={"cas_hmirc": str},
                                  low_memory=False)
