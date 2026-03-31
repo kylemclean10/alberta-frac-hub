@@ -115,9 +115,11 @@ def load_data():
     fact = pd.read_csv(fact_path,
                        dtype={"well_licence_number": str, "cas_hmirc": str},
                        low_memory=False)
+    fact["well_licence_number"] = fact["well_licence_number"].astype(str).str.strip()
     dim_well = pd.read_csv(POWERBI_DIR / "dim_well.csv",
                            dtype={"well_licence_number": str},
                            low_memory=False)
+    dim_well["well_licence_number"] = dim_well["well_licence_number"].astype(str).str.strip()
     dim_ingredient = pd.read_csv(POWERBI_DIR / "dim_ingredient.csv",
                                  dtype={"cas_hmirc": str},
                                  low_memory=False)
