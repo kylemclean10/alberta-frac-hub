@@ -121,13 +121,8 @@ def load_data():
                            dtype={"well_licence_number": str},
                            low_memory=False)
     dim_well["well_licence_number"] = dim_well["well_licence_number"].astype(str).str.strip()
-    # Verify join key overlap
-    import sys
-    print(f"DEBUG: fact rows={len(fact)}, dim_well rows={len(dim_well)}", file=sys.stderr)
-    print(f"DEBUG: fact wln sample={fact['well_licence_number'].head(3).tolist()}", file=sys.stderr)
-    print(f"DEBUG: dim_well wln sample={dim_well['well_licence_number'].head(3).tolist()}", file=sys.stderr)
-    overlap = fact["well_licence_number"].isin(dim_well["well_licence_number"]).sum()
-    print(f"DEBUG: overlap={overlap}", file=sys.stderr)
+    dim_well["start_year"] = pd.to_numeric(dim_well["start_year"], errors="coerce")
+
     dim_ingredient = pd.read_csv(POWERBI_DIR / "dim_ingredient.csv",
                                  dtype={"cas_hmirc": str},
                                  low_memory=False)
@@ -1079,7 +1074,7 @@ elif page == "Chemical Packages":
 
     with tab1:
         packages = build_packages("component_supplier_name_clean", "Supplier")
-        if not packages:
+        if len(packages) == 0:
             st.info("No supplier data available for this selection.")
         else:
             cols = st.columns(3)
@@ -1152,7 +1147,7 @@ elif page == "Chemical Packages":
                 "tvd": op_tvd_str,
             })
 
-        if not op_packages:
+        if len(op_packages) == 0:
             st.info("No operator data available for this selection.")
         else:
             cols = st.columns(3)
