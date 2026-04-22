@@ -8,17 +8,12 @@ venv/
 env/
 *.egg-info/
 
-# Raw data — too large for repo
+# Raw + intermediate data — too large for repo
 data/raw/
 data/processed/
 
-# Pipeline outputs — not needed in repo except powerbi CSVs
+# Uncompressed fact table — use .gz version instead
 outputs/powerbi/fact_ingredients.csv
-outputs/powerbi/dim_well.csv
-
-# Keep the small dimension tables but exclude the large fact + well tables
-# Actually keep all powerbi CSVs — they're needed to run the app
-# Override: don't ignore outputs/powerbi/
 
 # PyCharm / IDE
 .idea/

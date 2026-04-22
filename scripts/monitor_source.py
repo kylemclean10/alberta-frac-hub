@@ -395,7 +395,7 @@ def _print_summary(issues: list[str]):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Monitor AER source file for schema drift.")
-    parser.add_argument("--input",    type=str, default="SummaryChemical-WaterUse (4) - sample.csv",
+    parser.add_argument("--input",    type=str, default="SummaryChemical-WaterUse.csv",
                         help="Raw input filename (in data/raw/)")
     parser.add_argument("--baseline", type=str, default=str(BASELINE_PATH),
                         help="Path to baseline JSON file")
